@@ -1,0 +1,141 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-09-01T00:00:00.000Z",
+  "__export_source": "chatgpt:dncommerce",
+  "resources": [
+    {
+      "_id": "wrk_1",
+      "_type": "workspace",
+      "name": "DNCommerce API",
+      "description": ""
+    },
+    {
+      "_id": "env_1",
+      "_type": "environment",
+      "parentId": "wrk_1",
+      "name": "Base Environment",
+      "data": {
+        "baseUrl": "http://localhost:3000"
+      }
+    },
+    {
+      "_id": "fld_prod",
+      "_type": "request_group",
+      "parentId": "wrk_1",
+      "name": "Produtos"
+    },
+    {
+      "_id": "fld_cli",
+      "_type": "request_group",
+      "parentId": "wrk_1",
+      "name": "Clientes"
+    },
+    {
+      "_id": "fld_ped",
+      "_type": "request_group",
+      "parentId": "wrk_1",
+      "name": "Pedidos"
+    },
+    {
+      "_id": "fld_vend",
+      "_type": "request_group",
+      "parentId": "wrk_1",
+      "name": "Vendas"
+    },
+    {
+      "_id": "fld_est",
+      "_type": "request_group",
+      "parentId": "wrk_1",
+      "name": "Estoque"
+    },
+    {
+      "_id": "req_prod_create",
+      "_type": "request",
+      "parentId": "fld_prod",
+      "name": "Criar Produto",
+      "method": "POST",
+      "url": "{{ baseUrl }}/produtos",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"sku\": \"BATOM-RED-01\", \"nome\": \"Batom Vermelho\", \"descricao\": \"Matte\", \"preco_cents\": 3590}"
+      }
+    },
+    {
+      "_id": "req_prod_list",
+      "_type": "request",
+      "parentId": "fld_prod",
+      "name": "Listar Produtos",
+      "method": "GET",
+      "url": "{{ baseUrl }}/produtos"
+    },
+    {
+      "_id": "req_cli_create",
+      "_type": "request",
+      "parentId": "fld_cli",
+      "name": "Criar Cliente",
+      "method": "POST",
+      "url": "{{ baseUrl }}/clientes",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"nome\": \"Ana Clara\", \"email\": \"ana@example.com\"}"
+      }
+    },
+    {
+      "_id": "req_ped_create",
+      "_type": "request",
+      "parentId": "fld_ped",
+      "name": "Criar Pedido",
+      "method": "POST",
+      "url": "{{ baseUrl }}/pedidos",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"cliente_id\": \"COLOQUE-UUID\",\n  \"itens\": [\n    { \"produto_id\": \"COLOQUE-UUID\", \"quantidade\": 2 }\n  ]\n}"
+      }
+    },
+    {
+      "_id": "req_venda_pedido",
+      "_type": "request",
+      "parentId": "fld_vend",
+      "name": "Vender (via pedido)",
+      "method": "POST",
+      "url": "{{ baseUrl }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"pedido_id\": \"COLOQUE-UUID\",\n  \"metodo_pagamento\": \"pix\"\n}"
+      }
+    },
+    {
+      "_id": "req_venda_direta",
+      "_type": "request",
+      "parentId": "fld_vend",
+      "name": "Vender (direta)",
+      "method": "POST",
+      "url": "{{ baseUrl }}/vendas",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"cliente_id\": \"COLOQUE-UUID\",\n  \"metodo_pagamento\": \"cartao\",\n  \"itens\": [\n    { \"produto_id\": \"COLOQUE-UUID\", \"quantidade\": 1 }\n  ]\n}"
+      }
+    },
+    {
+      "_id": "req_estoque_list",
+      "_type": "request",
+      "parentId": "fld_est",
+      "name": "Ver Estoque",
+      "method": "GET",
+      "url": "{{ baseUrl }}/estoque"
+    },
+    {
+      "_id": "req_estoque_ajuste",
+      "_type": "request",
+      "parentId": "fld_est",
+      "name": "Ajuste de Estoque",
+      "method": "POST",
+      "url": "{{ baseUrl }}/estoque/ajuste",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"produto_id\": \"COLOQUE-UUID\",\n  \"tipo\": \"entrada\",\n  \"quantidade\": 10,\n  \"motivo\": \"compra fornecedor\"\n}"
+      }
+    }
+  ]
+}
